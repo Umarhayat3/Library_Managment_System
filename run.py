@@ -92,11 +92,9 @@ def Acquired():
     data = request.get_json()
     print(data)
     if all(key in data for key in ['user_name', 'serial_no']):
-        print('check # 01')
         book = Book.query.filter_by(serial_no=data["serial_no"]).first()
         members = User.query.filter_by(user_name=data["user_name"]).first()
         if book and members:
-            print('check # 02')
             acquires=Acquire(user_name=members.user_name, book_title=book.title,serial_no=book.serial_no)
             db.session.add(acquires)
             db.session.commit()
